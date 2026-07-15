@@ -1,5 +1,7 @@
 # MegaLinter Custom Flavor: PracticalliZensical
 
+> Latest Release
+
 This custom MegaLinter aims to have an optimized Docker image size.
 
 It is built from official MegaLinter images, but is maintained on https://github.com/practicalli/megalinter-custom-flavor-zensical by Practicalli Engineering
