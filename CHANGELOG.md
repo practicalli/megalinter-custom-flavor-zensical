@@ -5,6 +5,7 @@
 ### Changed
 
 - ci(github): 🔧 update actions to latest versions using `make dependencies-update`
+- build(make): 🔧 common practicalli tasks for projects
 
 | :file                                                  | :name               | :current | :latest |
 |--------------------------------------------------------|---------------------|----------|---------|
