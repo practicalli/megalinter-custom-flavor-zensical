@@ -70,7 +70,7 @@ jobs:
 
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           fetch-depth: 0
           persist-credentials: false
@@ -202,40 +202,6 @@ jobs:
              grep -q "HTTP 403" workflow_trigger.log || \
              [ $EXIT_CODE -ne 0 ]; then
 
-            echo "::error::❌ Failed to trigger workflow!"
-            echo ""
-            cat workflow_trigger.log
-            echo ""
-
-            if grep -q "Resource not accessible by integration" workflow_trigger.log || grep -q "HTTP 403" workflow_trigger.log; then
-              echo "::error::The workflow could not be triggered due to insufficient token permissions."
-              echo "::error::"
-              echo "::error::Deleting the release so it can be recreated once PAT_TOKEN is configured..."
-
-              # Delete the release and tag that was just created
-              gh release delete "$NEW_VERSION" --yes --cleanup-tag 2>&1 || echo "::warning::Could not delete release (it may not exist or already be deleted)"
-
-              echo "::error::"
-              echo "::error::⚠️ PAT_TOKEN is REQUIRED to create releases and trigger the builder workflow."
-              echo "::error::"
-              echo "::error::To fix this, create a Fine-grained Personal Access Token (recommended - more secure):"
-              echo "::error::1. Go to: https://github.com/settings/personal-access-tokens/new"
-              echo "::error::2. Token name: 'MegaLinter Auto-Release'"
-              echo "::error::3. Expiration: Choose 90 days or 1 year"
-              echo "::error::4. Repository access: Select 'Only select repositories'"
-              echo "::error::5. Choose repository: ${GITHUB_REPOSITORY}"
-              echo "::error::6. Repository permissions:"
-              echo "::error::   - Contents: Read and write"
-              echo "::error::   - Actions: Read and write"
-              echo "::error::7. Click 'Generate token' and copy it"
-              echo "::error::8. Go to: https://github.com/${GITHUB_REPOSITORY}/settings/secrets/actions"
-              echo "::error::9. Click 'New repository secret'"
-              echo "::error::10. Name: 'PAT_TOKEN', Value: paste your token"
-              echo "::error::"
-              echo "::error::Once configured, run this workflow again (manually or wait for the next scheduled run)."
-            fi
-
-            exit 1
           fi
 
           echo "✅ Builder workflow triggered successfully with version: $NEW_VERSION"
