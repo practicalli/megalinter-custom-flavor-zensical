@@ -3,7 +3,7 @@
 ### Added
 
 ### Changed
-
+- ci(megalinter): 🔧 update config via mega-linter-runner
 - ci(github): 🔧 update actions to latest versions using `make dependencies-update`
 - build(make): 🔧 common practicalli tasks for projects
 
